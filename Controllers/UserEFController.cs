@@ -45,9 +45,8 @@ public class UserEFController : ControllerBase
                 return  user;
             }
             throw new Exception("Failed to get user!");
-        
     }
-///Update user
+///      UPDATE user
     [HttpPut("EditUser")]
     public IActionResult EditUser(User user)
     {
@@ -70,7 +69,7 @@ public class UserEFController : ControllerBase
             }
             throw new Exception("Failed to get user!");         
     }
-///Add new user
+///      ADD new user
     [HttpPost("AddUser")]
     public IActionResult AddUser(UserToAddDto user)
     {
@@ -84,7 +83,7 @@ public class UserEFController : ControllerBase
                 }
                 throw new Exception("Failed to Add user!");
     }
-///DELETE USER
+///     DELETE USER
     [HttpDelete("DeleteUsers/{userId}")]
     public IActionResult DeleteUser( int userId)
     {
@@ -103,5 +102,21 @@ public class UserEFController : ControllerBase
             throw new Exception("Failed to Delete user!");
         }
           throw new Exception("Failed to Get User");   
+    }
+////////////// get SALARY 
+///
+ [HttpGet("GetSalary/{userId}")]
+    public User GetSalary( int userId)
+    {
+        User user = _entityFramework.Users
+              .Where(u => u.UserId == userId)
+              .FirstOrDefault<User>();
+
+        if(user != null)
+            {
+                return  user;
+            }
+            throw new Exception("Failed to get salary!");
+        
     }
 }
