@@ -4,7 +4,7 @@ using Microsoft.Data.SqlClient;
 
 namespace DataAPI.Data
 {
-    class DataContextDapper 
+    class DataContextDapper
     {
         private readonly IConfiguration _config;
 
@@ -19,7 +19,7 @@ namespace DataAPI.Data
             {
                 return dbConnection.Query<T>(sql);
             }
-            
+
         }
         public T LoadDataSingle<T>(string sql)
         {
@@ -41,6 +41,23 @@ namespace DataAPI.Data
             {
                 return dbConnection.Execute(sql);
             }
+        }
+        public bool ExecuteSglWithParameters(string sql, List<SqlParameter> parameters)
+        {
+            SqlCommand commandWithParams = new SqlCommand(sql);
+            foreach (SqlParameter parameter in parameters)
+            {
+                commandWithParams.Parameters.Add(parameter);
+            }
+            SqlConnection dbConnection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
+            dbConnection.Open();
+
+            commandWithParams.Connection = dbConnection;
+
+            int rowsAffected = commandWithParams.ExecuteNonQuery();
+
+            dbConnection.Close();
+            return dbConnection.Execute(sql) > 0;
         }
     }
 }

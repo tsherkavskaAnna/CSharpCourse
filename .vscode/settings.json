@@ -3,6 +3,7 @@
     "cSpell.words": [
         "ASPNETCORE",
         "Dtos",
-        "GETDATE"
+        "GETDATE",
+        "HMACSHA"
     ]
 }

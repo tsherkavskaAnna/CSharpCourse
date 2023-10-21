@@ -1,3 +1,7 @@
+using DataAPI.Data;
+using DotnetAPI.Data;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -26,6 +30,8 @@ builder.Services.AddCors((options) =>
         });
         
 });
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 
